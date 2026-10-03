@@ -1,0 +1,99 @@
+// E-Commerce Customer 360 - Power BI DAX
+// Source: project documentation
+
+// ============================================================
+// 2. DimCustomer — Calculated Table
+// ============================================================
+DimCustomer =
+DISTINCT(
+    SELECTCOLUMNS(
+        customer_360,
+        "customer_id", customer_360[customer_id]
+    )
+)
+
+// ============================================================
+// 4. Total Customers
+// ============================================================
+Total Customers =
+DISTINCTCOUNT(customer_360[customer_id])
+
+// ============================================================
+// 5. Total Revenue
+// ============================================================
+Total Revenue =
+SUM(customer_360[total_revenue_usd])
+
+// ============================================================
+// 6. Average Customer Revenue
+// ============================================================
+Average Customer Revenue =
+AVERAGE(customer_360[total_revenue_usd])
+
+// ============================================================
+// 7. Average Transactions per Customer
+// ============================================================
+Average Transactions per Customer =
+AVERAGE(customer_360[transaction_count])
+
+// ============================================================
+// 8. Average Transaction Value
+// ============================================================
+Average Transaction Value =
+AVERAGE(customer_360[avg_transaction_value])
+
+// ============================================================
+// 9. Estimated Revenue at Risk
+// ============================================================
+Estimated Revenue at Risk =
+SUM(revenue_at_risk[revenue_at_risk])
+
+// ============================================================
+// 10. High Value At Risk Customers
+// ============================================================
+High Value At Risk Customers =
+CALCULATE(
+    DISTINCTCOUNT(customer_risk[customer_id]),
+    customer_risk[risk_segment] = "High Value At Risk"
+)
+
+// ============================================================
+// 11. At Risk Customers
+// ============================================================
+At Risk Customers =
+CALCULATE(
+    DISTINCTCOUNT(customer_risk[customer_id]),
+    customer_risk[risk_segment]
+        IN {"High Value At Risk","At Risk","Hibernating / Lost"}
+)
+
+// ============================================================
+// 12. Average LTV
+// ============================================================
+Average LTV =
+AVERAGE(customer_ltv[total_revenue_usd])
+
+// ============================================================
+// 13. CALCULATE — Core DAX Concept
+// ============================================================
+CALCULATE(
+    <expression>,
+    <filter>
+)
+
+// ============================================================
+// 14. VALUES — Core DAX Concept
+// ============================================================
+VALUES(churn_predictions[customer_id])
+
+// ============================================================
+// 15. TREATAS — ML Integration
+// ============================================================
+Expected Revenue by Churn Risk =
+CALCULATE(
+    SUM(final_ltv_predictions[expected_30d_revenue]),
+    TREATAS(
+        VALUES(churn_predictions[customer_id]),
+        final_ltv_predictions[customer_id]
+    )
+)

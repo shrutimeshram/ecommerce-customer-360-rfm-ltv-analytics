@@ -1,0 +1,7 @@
+risk_segment,customer_count,total_ltv,risk_factor,revenue_at_risk
+Champions,300,51948.0,0.0,0.0
+Loyal Customers,617,31106.0,0.0,0.0
+Other,1310,109629.0,0.0,0.0
+At Risk,467,18074.0,0.5,9037.0
+Hibernating / Lost,419,16238.0,0.9,14614.2
+High Value At Risk,600,103353.0,0.75,77514.75

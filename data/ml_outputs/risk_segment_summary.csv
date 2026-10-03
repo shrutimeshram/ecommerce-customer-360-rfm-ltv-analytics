@@ -1,0 +1,7 @@
+risk_segment,customer_count,total_ltv,average_ltv
+Other,1310,109629.0,83.68625954198474
+High Value At Risk,600,103353.0,172.255
+Champions,300,51948.0,173.16
+Loyal Customers,617,31106.0,50.414910858995135
+At Risk,467,18074.0,38.70235546038544
+Hibernating / Lost,419,16238.0,38.75417661097852
